@@ -1,4 +1,4 @@
-# root@night
+# soahcerup@notes
 
 A static site for CTF machine writeups, security research, and news. Black-and-purple,
 terminal-themed. You write Markdown, GitHub builds and publishes it — no server, no database,
