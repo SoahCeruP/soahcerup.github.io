@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>~/about — root@night</title>
+<meta name="description" content="About root@night — security researcher and CTF player.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="titlebar-row">
+    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+    <span class="titlebar-path">root@night: ~/about.md</span>
+  </div>
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <span class="prompt-user">root</span><span class="prompt-sep">@night:~$</span>
+      <span class="prompt-cursor">_</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">menu</button>
+    <ul class="nav-links">
+      <li><a href="index.html">./home</a></li>
+      <li><a href="writeups.html">./writeups</a></li>
+      <li><a href="blog.html">./blog</a></li>
+      <li><a href="about.html" class="active">./about</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="page-head wrap">
+    <div class="section-path">~/about.md</div>
+    <h1>About</h1>
+  </div>
+
+  <section class="section">
+    <div class="wrap about-grid">
+      <div>
+        <p style="font-size:16px; color:#c9c5d6;">
+          I'm a security researcher and CTF player. This site is where I write up machines after I root them —
+          the full path, including the enumeration that went nowhere, because that's usually the part
+          nobody else writes down.
+        </p>
+        <p style="font-size:16px; color:#c9c5d6;">
+          Most of what's here is Hack The Box and TryHackMe writeups, with the occasional deeper research post
+          when a technique is interesting enough to deserve its own writeup outside of a specific box. I also
+          track security news that's actually worth your attention, and skip the rest.
+        </p>
+        <p style="font-size:16px; color:#c9c5d6;">
+          If you spot a mistake in a writeup, or you want to talk about a chain, reach out — links are in the
+          footer on every page.
+        </p>
+      </div>
+
+      <div>
+        <ul class="skill-list">
+          <li><span>active directory</span><span>&#9632;&#9632;&#9632;&#9632;&#9632;</span></li>
+          <li><span>web exploitation</span><span>&#9632;&#9632;&#9632;&#9632;&#9633;</span></li>
+          <li><span>binary exploitation</span><span>&#9632;&#9632;&#9632;&#9633;&#9633;</span></li>
+          <li><span>cryptography</span><span>&#9632;&#9632;&#9632;&#9633;&#9633;</span></li>
+          <li><span>osint</span><span>&#9632;&#9632;&#9633;&#9633;&#9633;</span></li>
+        </ul>
+        <p style="margin-top:20px;"><a href="mailto:hello@example.com" class="btn solid">get in touch</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <span>root@night — last updated Aug 2026</span>
+    <div class="footer-links">
+      <a href="https://github.com/" target="_blank" rel="noopener">github</a>
+      <a href="https://x.com/" target="_blank" rel="noopener">x/twitter</a>
+      <a href="mailto:hello@example.com">email</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

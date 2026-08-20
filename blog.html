@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>~/blog — root@night</title>
+<meta name="description" content="Security news, research notes, and opinion from root@night.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="titlebar-row">
+    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+    <span class="titlebar-path">root@night: ~/blog</span>
+  </div>
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <span class="prompt-user">root</span><span class="prompt-sep">@night:~$</span>
+      <span class="prompt-cursor">_</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">menu</button>
+    <ul class="nav-links">
+      <li><a href="index.html">./home</a></li>
+      <li><a href="writeups.html">./writeups</a></li>
+      <li><a href="blog.html" class="active">./blog</a></li>
+      <li><a href="about.html">./about</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="page-head wrap">
+    <div class="section-path">~/blog</div>
+    <h1>Blog &amp; news</h1>
+    <p class="lede">Security news worth your attention, research notes, and the occasional opinion piece.</p>
+  </div>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid">
+
+        <article class="card post">
+          <div class="card-meta"><span class="kicker">news</span><span>Aug 14, 2026</span></div>
+          <h3><a href="post.html">A new critical unauth RCE in a widely-used VPN appliance</a></h3>
+          <p>What's actually exploitable right now, and what to patch before the PoCs land publicly.</p>
+        </article>
+
+        <article class="card post">
+          <div class="card-meta"><span class="kicker">research</span><span>Aug 6, 2026</span></div>
+          <h3><a href="post.html">Notes on fuzzing GraphQL resolvers for IDOR</a></h3>
+          <p>A field-tested checklist for finding broken object-level auth in modern GraphQL APIs.</p>
+        </article>
+
+        <article class="card post">
+          <div class="card-meta"><span class="kicker">opinion</span><span>Jul 29, 2026</span></div>
+          <h3><a href="post.html">Why writeups should show the dead ends, not just the win</a></h3>
+          <p>The failed enumeration paths teach more than the three commands that finally worked.</p>
+        </article>
+
+        <article class="card post">
+          <div class="card-meta"><span class="kicker">news</span><span>Jul 21, 2026</span></div>
+          <h3><a href="post.html">Supply-chain compromise hits a popular CI/CD action</a></h3>
+          <p>A malicious version bump quietly exfiltrated secrets from thousands of pipelines.</p>
+        </article>
+
+        <article class="card post">
+          <div class="card-meta"><span class="kicker">research</span><span>Jul 10, 2026</span></div>
+          <h3><a href="post.html">Building a cheap home lab for AD attack practice</a></h3>
+          <p>A three-VM domain that's good enough to practice every technique in this blog.</p>
+        </article>
+
+        <article class="card post">
+          <div class="card-meta"><span class="kicker">opinion</span><span>Jun 30, 2026</span></div>
+          <h3><a href="post.html">CVSS scores are a starting point, not a verdict</a></h3>
+          <p>Why a "medium" severity finding sometimes deserves to be treated like a fire.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <span>root@night — last updated Aug 2026</span>
+    <div class="footer-links">
+      <a href="https://github.com/" target="_blank" rel="noopener">github</a>
+      <a href="https://x.com/" target="_blank" rel="noopener">x/twitter</a>
+      <a href="mailto:hello@example.com">email</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

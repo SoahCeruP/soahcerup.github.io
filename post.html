@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warden — ADCS ESC1 to Domain Admin · root@night</title>
+<meta name="description" content="Misconfigured certificate templates turn a low-priv service account into full domain compromise.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="titlebar-row">
+    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+    <span class="titlebar-path">root@night: ~/writeups/warden.md</span>
+  </div>
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <span class="prompt-user">root</span><span class="prompt-sep">@night:~$</span>
+      <span class="prompt-cursor">_</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">menu</button>
+    <ul class="nav-links">
+      <li><a href="index.html">./home</a></li>
+      <li><a href="writeups.html" class="active">./writeups</a></li>
+      <li><a href="blog.html">./blog</a></li>
+      <li><a href="about.html">./about</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <div class="post-header wrap">
+    <div class="post-path">~/writeups/warden.md</div>
+    <h1 class="post-title">Warden — ADCS ESC1 to Domain Admin</h1>
+    <div class="post-meta">
+      <span>HTB · Windows</span>
+      <span class="badge hard">hard</span>
+      <span>Aug 12, 2026</span>
+      <span>active-directory · adcs · pki</span>
+    </div>
+  </div>
+
+  <article class="prose">
+    <p>Warden looks like a routine Active Directory box on the surface: an exposed SMB share, a couple of low-privilege
+    credentials leaked in a config file, and the usual enumeration grind. The real story is what's sitting quietly
+    behind it — a certificate authority with a template that trusts the wrong people.</p>
+
+    <h2>Enumeration</h2>
+    <p>A standard sweep with common AD tooling turns up an SMB share readable by any authenticated user, containing a
+    deployment script with a hardcoded service account password. That's enough for an initial foothold, but not
+    enough to move laterally on its own.</p>
+    <pre><code>crackmapexec smb warden.htb -u svc_deploy -p '&lt;redacted&gt;' --shares</code></pre>
+
+    <h3>Finding the certificate template</h3>
+    <p>With valid low-privilege credentials, querying the AD Certificate Services configuration reveals a template
+    that allows enrollee-supplied subject names and is available to low-privileged users — the classic shape of an
+    ESC1 misconfiguration.</p>
+    <pre><code>certipy find -u svc_deploy -p '&lt;redacted&gt;' -dc-ip 10.10.11.4 -vulnerable</code></pre>
+
+    <blockquote>The template's supposed to hand out certs for service accounts. Nobody checked who's allowed to ask
+    for one on someone else's behalf.</blockquote>
+
+    <h2>Exploitation</h2>
+    <p>Requesting a certificate on behalf of a domain administrator account, then using that certificate to obtain a
+    Kerberos ticket, is enough to fully impersonate that account.</p>
+    <pre><code>certipy req -u svc_deploy -p '&lt;redacted&gt;' -ca WARDEN-CA -template UserAuth -upn administrator@warden.htb
+certipy auth -pfx administrator.pfx -domain warden.htb</code></pre>
+
+    <p>From there, a Pass-the-Hash straight into a SYSTEM shell closes out the box.</p>
+
+    <h2>Remediation</h2>
+    <ul>
+      <li>Restrict enrollment rights on certificate templates to the accounts that actually need them.</li>
+      <li>Disable "supply in request" for subject alternative names unless it's explicitly required.</li>
+      <li>Audit AD CS configuration regularly — this class of bug hides in plain sight.</li>
+    </ul>
+  </article>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <span>root@night — last updated Aug 2026</span>
+    <div class="footer-links">
+      <a href="https://github.com/" target="_blank" rel="noopener">github</a>
+      <a href="https://x.com/" target="_blank" rel="noopener">x/twitter</a>
+      <a href="mailto:hello@example.com">email</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

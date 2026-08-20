@@ -1,27 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My First Website</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>root@night — writeups &amp; security notes</title>
+<meta name="description" content="CTF machine writeups, security research, and news from root@night.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <h1>Welcome to My Website</h1>
-    <p>This is a basic paragraph of text on your new webpage.</p>
-
-    <!-- This is a link -->
-    <a href="https://www.w3schools.com" target="_blank">Visit W3Schools for Tutorials</a>
-
-    <br><br>
-
-    <!-- This is a bulleted list -->
-    <h3>My Favorite Things:</h3>
-    <ul>
-        <li>Coding</li>
-        <li>Learning new things</li>
-        <li>Designing websites</li>
+<header class="topbar">
+  <div class="titlebar-row">
+    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+    <span class="titlebar-path">root@night: ~</span>
+  </div>
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <span class="prompt-user">root</span><span class="prompt-sep">@night:~$</span>
+      <span class="prompt-cursor">_</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">menu</button>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">./home</a></li>
+      <li><a href="writeups.html">./writeups</a></li>
+      <li><a href="blog.html">./blog</a></li>
+      <li><a href="about.html">./about</a></li>
     </ul>
+  </nav>
+</header>
 
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="terminal">
+        <div class="terminal-head">
+          <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+          <span>session.log</span>
+        </div>
+        <div class="terminal-body" id="terminal-body">
+          <div class="terminal-line" data-type>
+            <span class="p">root@night:~$</span> <span class="typed-text out">whoami</span>
+          </div>
+          <div class="terminal-line" data-type>
+            <span class="out">security researcher · ctf player · writes it all down</span>
+          </div>
+          <div class="terminal-line" data-type>
+            <span class="p">root@night:~$</span> <span class="typed-text out">ls ~/</span>
+          </div>
+          <div class="terminal-line term-nav-line" data-type>
+            <a href="writeups.html">writeups/</a>&nbsp;&nbsp;
+            <a href="blog.html">blog/</a>&nbsp;&nbsp;
+            <a href="about.html">about.md</a>
+          </div>
+          <div class="terminal-line" data-type>
+            <span class="p">root@night:~$</span> <span class="typed-text out">cat status.txt</span>
+          </div>
+          <div class="terminal-line" data-type>
+            <span class="comment"># currently working through Active Directory chains on HTB</span>
+          </div>
+          <div class="terminal-line" data-type>
+            <span class="p">root@night:~$</span> <span class="cursor-block"></span>
+          </div>
+        </div>
+      </div>
+      <p class="hero-tag"><span class="live-dot"></span> new writeup published every week — no fluff, just the chain</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-path">~/writeups/latest</div>
+          <h2 class="section-title">Latest machines</h2>
+        </div>
+        <a href="writeups.html" class="section-link">view all →</a>
+      </div>
+
+      <div class="grid">
+        <article class="card">
+          <div class="card-meta">
+            <span>HTB · Linux</span>
+            <span class="badge medium">medium</span>
+          </div>
+          <h3><a href="post.html">Scriptorium — chaining an SQLi into a Lua sandbox escape</a></h3>
+          <p>A CMS login form leaks just enough to pivot into an authenticated Lua plugin engine, then out to a root shell.</p>
+          <div class="tags">
+            <span class="tag">web</span><span class="tag">sqli</span><span class="tag">sandbox-escape</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-meta">
+            <span>HTB · Windows</span>
+            <span class="badge hard">hard</span>
+          </div>
+          <h3><a href="post.html">Warden — ADCS ESC1 to Domain Admin</a></h3>
+          <p>Misconfigured certificate templates turn a low-priv service account into full domain compromise.</p>
+          <div class="tags">
+            <span class="tag">active-directory</span><span class="tag">adcs</span><span class="tag">pki</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-meta">
+            <span>THM · Linux</span>
+            <span class="badge easy">easy</span>
+          </div>
+          <h3><a href="post.html">Driftwood — Docker socket to host escape</a></h3>
+          <p>An exposed docker.sock on a "hardened" web app makes container breakout almost too easy.</p>
+          <div class="tags">
+            <span class="tag">docker</span><span class="tag">privesc</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-path">~/blog/recent</div>
+          <h2 class="section-title">From the blog</h2>
+        </div>
+        <a href="blog.html" class="section-link">view all →</a>
+      </div>
+
+      <div class="grid">
+        <article class="card post">
+          <div class="card-meta"><span class="kicker">news</span><span>Aug 14, 2026</span></div>
+          <h3><a href="post.html">A new critical unauth RCE in a widely-used VPN appliance</a></h3>
+          <p>What's actually exploitable right now, and what to patch before the PoCs land publicly.</p>
+        </article>
+
+        <article class="card post">
+          <div class="card-meta"><span class="kicker">research</span><span>Aug 6, 2026</span></div>
+          <h3><a href="post.html">Notes on fuzzing GraphQL resolvers for IDOR</a></h3>
+          <p>A field-tested checklist for finding broken object-level auth in modern GraphQL APIs.</p>
+        </article>
+
+        <article class="card post">
+          <div class="card-meta"><span class="kicker">opinion</span><span>Jul 29, 2026</span></div>
+          <h3><a href="post.html">Why writeups should show the dead ends, not just the win</a></h3>
+          <p>The failed enumeration paths teach more than the three commands that finally worked.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <span>root@night — last updated Aug 2026</span>
+    <div class="footer-links">
+      <a href="https://github.com/" target="_blank" rel="noopener">github</a>
+      <a href="https://x.com/" target="_blank" rel="noopener">x/twitter</a>
+      <a href="mailto:hello@example.com">email</a>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
 </body>
 </html>
