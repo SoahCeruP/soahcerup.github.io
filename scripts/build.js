@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * root@night — static site build script
+ * soahcerup@mind — static site build script
  *
  * Reads Markdown files from content/writeups and content/blog,
  * renders them through the HTML templates in templates/, and
