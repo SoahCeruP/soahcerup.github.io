@@ -1,0 +1,113 @@
+/* ============================================================
+   Live interactive terminal — additional styles
+   Include this AFTER style.css
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   Container — replaces .terminal on the home hero
+   ---------------------------------------------------------- */
+.terminal-live {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 40px 100px -40px rgba(139, 92, 246, 0.25);
+  display: flex;
+  flex-direction: column;
+  height: 460px;       /* fixed height; inner output scrolls */
+  cursor: text;
+}
+
+/* titlebar */
+.terminal-live .terminal-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+  user-select: none;
+}
+.terminal-live .terminal-head span.title {
+  margin-left: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+/* scrollable output area */
+.t-output {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 24px 8px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.65;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-bright) transparent;
+}
+.t-output::-webkit-scrollbar { width: 4px; }
+.t-output::-webkit-scrollbar-thumb { background: var(--border-bright); border-radius: 2px; }
+
+/* input row — always visible at bottom */
+.t-input-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 24px 14px;
+  border-top: 1px solid var(--border);
+  flex-shrink: 0;
+  background: var(--bg-elevated);
+}
+.t-input-row .p {
+  white-space: nowrap;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--purple-soft);
+  flex-shrink: 0;
+}
+.t-input-row .p .cwd {
+  color: var(--magenta-soft);
+}
+.t-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text-primary);
+  caret-color: var(--purple-primary);
+  min-width: 0;
+}
+.t-input::placeholder { color: var(--text-dim); }
+
+/* ----------------------------------------------------------
+   Output token colours
+   ---------------------------------------------------------- */
+.t-dir   { color: #93c5fd; }          /* blue-300 — directories  */
+.t-file  { color: var(--text-primary); }
+.t-link  { color: var(--purple-soft); border-bottom: 1px dashed var(--border-bright); }
+.t-link:hover { color: var(--magenta-soft); border-color: var(--magenta-soft); }
+.t-muted { color: var(--text-dim); }
+.t-err   { color: #f87171; }          /* red */
+.t-ok    { color: var(--live-green); }
+.t-key   { color: var(--purple-soft); min-width: 10ch; display: inline-block; }
+.t-val   { color: var(--text-primary); }
+
+/* separator lines */
+.terminal-line:empty { height: 0.5em; }
+
+/* reuse existing prompt/comment/out colours from style.css */
+
+/* ----------------------------------------------------------
+   Responsive — shorter terminal on small screens
+   ---------------------------------------------------------- */
+@media (max-width: 600px) {
+  .terminal-live { height: 380px; }
+  .t-output      { font-size: 12.5px; padding: 14px 16px 6px; }
+  .t-input-row   { padding: 8px 16px 12px; }
+  .t-input-row .p,
+  .t-input       { font-size: 12.5px; }
+}
