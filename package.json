@@ -1,11 +1,10 @@
 {
   "name": "root-at-night-site",
   "version": "1.0.0",
-  "private": true,
-  "description": "Static site build for root@night — writeups and security posts.",
+  "description": "Personal cybersecurity blog and writeups",
+  "main": "scripts/build.js",
   "scripts": {
-    "build": "node scripts/build.js",
-    "serve": "npx --yes serve dist"
+    "build": "node scripts/build.js"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",
