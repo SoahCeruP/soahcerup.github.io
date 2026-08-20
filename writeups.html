@@ -43,72 +43,11 @@
     <div class="wrap">
       <div class="filter-bar">
         <button class="filter-pill active" data-filter="all">all</button>
-        <button class="filter-pill" data-filter="active-directory">active directory</button>
-        <button class="filter-pill" data-filter="web">web</button>
-        <button class="filter-pill" data-filter="privesc">privesc</button>
-        <button class="filter-pill" data-filter="crypto">crypto</button>
-        <button class="filter-pill" data-filter="pwn">pwn</button>
-        <button class="filter-pill" data-filter="osint">osint</button>
+{{FILTER_PILLS}}
       </div>
 
       <div class="grid">
-
-        <article class="card" data-tags="web,privesc">
-          <div class="card-meta"><span>HTB · Linux</span><span class="badge medium">medium</span></div>
-          <h3><a href="post.html">Scriptorium — SQLi into a Lua sandbox escape</a></h3>
-          <p>A CMS login form leaks just enough to pivot into an authenticated Lua plugin engine.</p>
-          <div class="tags"><span class="tag">web</span><span class="tag">sqli</span><span class="tag">sandbox-escape</span></div>
-        </article>
-
-        <article class="card" data-tags="active-directory">
-          <div class="card-meta"><span>HTB · Windows</span><span class="badge hard">hard</span></div>
-          <h3><a href="post.html">Warden — ADCS ESC1 to Domain Admin</a></h3>
-          <p>Misconfigured certificate templates turn a low-priv service account into full domain compromise.</p>
-          <div class="tags"><span class="tag">active-directory</span><span class="tag">adcs</span></div>
-        </article>
-
-        <article class="card" data-tags="privesc,web">
-          <div class="card-meta"><span>THM · Linux</span><span class="badge easy">easy</span></div>
-          <h3><a href="post.html">Driftwood — Docker socket to host escape</a></h3>
-          <p>An exposed docker.sock on a "hardened" web app makes container breakout almost too easy.</p>
-          <div class="tags"><span class="tag">docker</span><span class="tag">privesc</span></div>
-        </article>
-
-        <article class="card" data-tags="pwn">
-          <div class="card-meta"><span>HTB · Linux</span><span class="badge insane">insane</span></div>
-          <h3><a href="post.html">Hollow Frame — heap grooming a custom allocator</a></h3>
-          <p>Building a reliable use-after-free primitive against a bespoke slab allocator, from scratch.</p>
-          <div class="tags"><span class="tag">pwn</span><span class="tag">heap</span></div>
-        </article>
-
-        <article class="card" data-tags="active-directory,privesc">
-          <div class="card-meta"><span>HTB · Windows</span><span class="badge medium">medium</span></div>
-          <h3><a href="post.html">Bellwether — Kerberoasting an over-privileged service account</a></h3>
-          <p>A weak service account password unravels the whole domain once you know where to roast.</p>
-          <div class="tags"><span class="tag">active-directory</span><span class="tag">kerberos</span></div>
-        </article>
-
-        <article class="card" data-tags="crypto">
-          <div class="card-meta"><span>THM · Misc</span><span class="badge medium">medium</span></div>
-          <h3><a href="post.html">Ciphertext Alley — breaking a homebrew stream cipher</a></h3>
-          <p>Recovering the keystream from nonce reuse in a "custom" encryption scheme.</p>
-          <div class="tags"><span class="tag">crypto</span><span class="tag">reverse-engineering</span></div>
-        </article>
-
-        <article class="card" data-tags="osint">
-          <div class="card-meta"><span>THM · OSINT</span><span class="badge easy">easy</span></div>
-          <h3><a href="post.html">Loose Threads — deanonymizing a throwaway account</a></h3>
-          <p>Metadata, timing patterns, and one reused avatar are all it takes.</p>
-          <div class="tags"><span class="tag">osint</span></div>
-        </article>
-
-        <article class="card" data-tags="web,pwn">
-          <div class="card-meta"><span>HTB · Linux</span><span class="badge hard">hard</span></div>
-          <h3><a href="post.html">Nightshade — SSRF into an internal Redis, into RCE</a></h3>
-          <p>Chaining a blind SSRF through an internal service mesh to land code execution on a worker node.</p>
-          <div class="tags"><span class="tag">web</span><span class="tag">ssrf</span><span class="tag">pwn</span></div>
-        </article>
-
+{{WRITEUP_CARDS}}
       </div>
     </div>
   </section>
@@ -116,7 +55,7 @@
 
 <footer class="site-footer">
   <div class="wrap footer-row">
-    <span>root@night — last updated Aug 2026</span>
+    <span>root@night — last updated {{BUILD_DATE}}</span>
     <div class="footer-links">
       <a href="https://github.com/" target="_blank" rel="noopener">github</a>
       <a href="https://x.com/" target="_blank" rel="noopener">x/twitter</a>

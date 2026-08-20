@@ -1,34 +1,106 @@
 # root@night
 
-A static site for CTF machine writeups, security research, and news. Black-and-purple, terminal-themed, no build step.
+A static site for CTF machine writeups, security research, and news. Black-and-purple,
+terminal-themed. You write Markdown, GitHub builds and publishes it — no server, no database,
+no build tools required on your machine unless you want to preview locally.
 
-## Structure
+## How it works
 
 ```
-index.html      home page (terminal hero + latest writeups/blog)
-writeups.html   full writeup listing with tag filters
-blog.html       blog / news listing
-post.html       single post template — duplicate this for each new writeup or post
-about.html      about page
-css/style.css   design system (all colors/type as CSS variables at the top)
-js/main.js      terminal typing effect, tag filters, mobile nav
+content/writeups/*.md   ← one Markdown file per machine writeup
+content/blog/*.md       ← one Markdown file per blog/news post
+templates/*.html        ← page layouts (edit these to change design/structure)
+css/, js/                ← styling and the terminal-typing / filter behavior
+scripts/build.js        ← reads content/, renders templates/, writes dist/
+dist/                   ← generated output (gitignored — never edit by hand)
 ```
 
-## Editing content
+On every push to `main`, a GitHub Actions workflow (`.github/workflows/deploy.yml`) runs
+`npm run build` and publishes the `dist/` folder to GitHub Pages automatically. You never need to
+run the build yourself unless you want to preview locally first.
 
-- **New writeup or post**: duplicate `post.html`, update the title, meta, and prose content, then add a matching `<article class="card">` to `index.html` and/or `writeups.html` / `blog.html`.
-- **Difficulty badges**: use classes `badge easy` / `badge medium` / `badge hard` / `badge insane`.
-- **Tag filters** (writeups.html): each card needs `data-tags="tag-one,tag-two"` matching a `data-filter` value in the `.filter-bar` buttons.
-- **Colors/fonts**: all defined as CSS custom properties at the top of `css/style.css` — change once, applies everywhere.
-- **Socials**: update the links in the `<footer class="site-footer">` block on every page.
+## Adding a new writeup
+
+Create a new file in `content/writeups/`, e.g. `content/writeups/my-new-box.md`:
+
+```markdown
+---
+title: My New Box — SSRF to root
+date: 2026-08-20
+platform: HTB · Linux
+difficulty: medium
+tags: [web, ssrf, privesc]
+excerpt: One sentence summary shown on the card and in the page description.
+---
+
+Your writeup content here, in normal Markdown. Use `## headings`, code fences,
+> blockquotes, and lists as needed — it'll come out styled to match the rest of the site.
+```
+
+- `difficulty` must be one of: `easy`, `medium`, `hard`, `insane`.
+- `tags` power the filter buttons on the writeups page — reuse existing tags where they fit so
+  the filters stay meaningful, introduce new ones freely otherwise.
+- The filename (minus `.md`) becomes the page URL, e.g. `my-new-box.html`. Set an explicit `slug:`
+  field in the frontmatter if you want the URL to differ from the filename.
+
+Commit and push — the site rebuilds and republishes on its own.
+
+## Adding a new blog/news post
+
+Same idea, in `content/blog/`:
+
+```markdown
+---
+title: A post title
+date: 2026-08-20
+kicker: news
+excerpt: One sentence summary.
+---
+
+Post content in Markdown.
+```
+
+`kicker` is the small label shown on the card (`news`, `research`, `opinion`, or anything you like).
+
+## Previewing locally (optional)
+
+```
+npm install
+npm run build     # writes dist/
+npm run serve     # serves dist/ at http://localhost:3000
+```
+
+## Editing the design
+
+- Colors, fonts, spacing: all defined as CSS custom properties at the top of `css/style.css`.
+- Page structure/layout: edit the files in `templates/`. Tokens like `{{TITLE}}` and `{{CONTENT}}`
+  are filled in by the build script — don't rename them unless you update `scripts/build.js` to match.
+- The `about.html` template has no tokens; edit it directly, it's copied through as-is.
+
+## Security notes
+
+This site has no comments, no user accounts, and no form submissions — there's nothing for a
+visitor to send the server, because there is no server beyond GitHub Pages hosting static files.
+That's deliberate. A few things that keep it that way:
+
+- **Markdown, not raw HTML.** The build renders content with `html: false`, so anything that looks
+  like a `<script>` tag typed into a `.md` file is displayed as literal text, not executed. This
+  matters less when you're the only author, but it's a free safeguard against a copy-pasted
+  code snippet accidentally becoming live markup.
+- **Pinned, minimal dependencies.** Only two npm packages (`gray-matter`, `markdown-it`) are used
+  to build the site, and `npm ci` in the GitHub Actions workflow installs exactly the versions
+  locked in `package-lock.json` — nothing floats to a newer, unreviewed version on its own.
+- **No secrets involved.** The build needs no API keys, tokens, or credentials, so there's nothing
+  sensitive sitting in the repo or in GitHub Actions to leak.
+- **If you ever add anything interactive later** (a contact form, comments, analytics, a search
+  box that calls an API) — that's the point where you'd need to think about input validation,
+  rate limiting, and where the data goes. Until then, the attack surface is essentially "can
+  someone edit files in my GitHub repo," which is already covered by your GitHub account security.
 
 ## Publishing on GitHub Pages
 
-1. Push this content to your repo (root, or a `/docs` folder — your choice).
-2. In the repo settings, enable **Pages** and point it at that branch/folder.
-3. That's it — no build step, it's plain HTML/CSS/JS.
-
-## Notes
-
-- Fonts (Space Grotesk, Inter, JetBrains Mono) load from Google Fonts via the `<link>` tags in each page's `<head>`. Swap for self-hosted fonts if you'd rather not depend on that.
-- All placeholder content (writeup titles, bio, social links) is meant to be replaced with your own.
+1. Push this repo to GitHub.
+2. In **Settings → Pages**, set Source to **GitHub Actions** (not "Deploy from a branch").
+3. Push to `main` — the workflow builds and deploys automatically. Check the **Actions** tab if a
+   deploy doesn't show up; build errors (like a missing frontmatter field) show up there with a
+   clear message pointing at the file that needs fixing.

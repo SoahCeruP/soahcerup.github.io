@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>~/blog — root@night</title>
-<meta name="description" content="Security news, research notes, and opinion from root@night.">
+<title>{{TITLE}} · root@night</title>
+<meta name="description" content="{{EXCERPT}}">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
 <header class="topbar">
   <div class="titlebar-row">
     <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-    <span class="titlebar-path">root@night: ~/blog</span>
+    <span class="titlebar-path">root@night: ~/blog/{{SLUG}}.md</span>
   </div>
   <nav class="nav">
     <a href="index.html" class="brand">
@@ -33,19 +33,18 @@
 </header>
 
 <main>
-  <div class="page-head wrap">
-    <div class="section-path">~/blog</div>
-    <h1>Blog &amp; news</h1>
-    <p class="lede">Security news worth your attention, research notes, and the occasional opinion piece.</p>
+  <div class="post-header wrap">
+    <div class="post-path">~/blog/{{SLUG}}.md</div>
+    <h1 class="post-title">{{TITLE}}</h1>
+    <div class="post-meta">
+      <span>{{KICKER}}</span>
+      <span>{{DATE_DISPLAY}}</span>
+    </div>
   </div>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="grid">
-{{BLOG_CARDS}}
-      </div>
-    </div>
-  </section>
+  <article class="prose">
+{{CONTENT}}
+  </article>
 </main>
 
 <footer class="site-footer">

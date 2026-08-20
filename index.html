@@ -81,41 +81,7 @@
       </div>
 
       <div class="grid">
-        <article class="card">
-          <div class="card-meta">
-            <span>HTB · Linux</span>
-            <span class="badge medium">medium</span>
-          </div>
-          <h3><a href="post.html">Scriptorium — chaining an SQLi into a Lua sandbox escape</a></h3>
-          <p>A CMS login form leaks just enough to pivot into an authenticated Lua plugin engine, then out to a root shell.</p>
-          <div class="tags">
-            <span class="tag">web</span><span class="tag">sqli</span><span class="tag">sandbox-escape</span>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-meta">
-            <span>HTB · Windows</span>
-            <span class="badge hard">hard</span>
-          </div>
-          <h3><a href="post.html">Warden — ADCS ESC1 to Domain Admin</a></h3>
-          <p>Misconfigured certificate templates turn a low-priv service account into full domain compromise.</p>
-          <div class="tags">
-            <span class="tag">active-directory</span><span class="tag">adcs</span><span class="tag">pki</span>
-          </div>
-        </article>
-
-        <article class="card">
-          <div class="card-meta">
-            <span>THM · Linux</span>
-            <span class="badge easy">easy</span>
-          </div>
-          <h3><a href="post.html">Driftwood — Docker socket to host escape</a></h3>
-          <p>An exposed docker.sock on a "hardened" web app makes container breakout almost too easy.</p>
-          <div class="tags">
-            <span class="tag">docker</span><span class="tag">privesc</span>
-          </div>
-        </article>
+{{LATEST_WRITEUPS}}
       </div>
     </div>
   </section>
@@ -131,23 +97,7 @@
       </div>
 
       <div class="grid">
-        <article class="card post">
-          <div class="card-meta"><span class="kicker">news</span><span>Aug 14, 2026</span></div>
-          <h3><a href="post.html">A new critical unauth RCE in a widely-used VPN appliance</a></h3>
-          <p>What's actually exploitable right now, and what to patch before the PoCs land publicly.</p>
-        </article>
-
-        <article class="card post">
-          <div class="card-meta"><span class="kicker">research</span><span>Aug 6, 2026</span></div>
-          <h3><a href="post.html">Notes on fuzzing GraphQL resolvers for IDOR</a></h3>
-          <p>A field-tested checklist for finding broken object-level auth in modern GraphQL APIs.</p>
-        </article>
-
-        <article class="card post">
-          <div class="card-meta"><span class="kicker">opinion</span><span>Jul 29, 2026</span></div>
-          <h3><a href="post.html">Why writeups should show the dead ends, not just the win</a></h3>
-          <p>The failed enumeration paths teach more than the three commands that finally worked.</p>
-        </article>
+{{LATEST_BLOG}}
       </div>
     </div>
   </section>
@@ -155,7 +105,7 @@
 
 <footer class="site-footer">
   <div class="wrap footer-row">
-    <span>root@night — last updated Aug 2026</span>
+    <span>root@night — last updated {{BUILD_DATE}}</span>
     <div class="footer-links">
       <a href="https://github.com/" target="_blank" rel="noopener">github</a>
       <a href="https://x.com/" target="_blank" rel="noopener">x/twitter</a>
