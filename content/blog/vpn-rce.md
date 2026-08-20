@@ -5,6 +5,8 @@ kicker: news
 excerpt: What's actually exploitable right now, and what to patch before the PoCs land publicly.
 ---
 
+
+
 A vendor disclosed a critical, unauthenticated remote code execution vulnerability in one of the
 more widely deployed VPN appliances this week. Here's what's actually known so far, and what to
 prioritize before public proof-of-concept exploits land.
