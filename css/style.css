@@ -446,7 +446,7 @@ body::before {
 
 .footer-links a {
   display: inline-flex;
-  align-items: center;
+  align-items: space-between;
   justify-content: center;
   font-size: 14px;
   color: var(--text-dim);
