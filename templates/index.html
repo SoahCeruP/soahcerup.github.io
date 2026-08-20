@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>soahcerup@notes — writeups &amp; security notes</title>
+<meta name="description" content="CTF machine writeups, security research, and notes from soahcerup@notes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/terminal-live.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="titlebar-row">
+    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+    <span class="titlebar-path">soahcerup@notes: ~</span>
+  </div>
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <span class="prompt-user">soahcerup</span><span class="prompt-sep">@notes:~$</span>
+      <span class="prompt-cursor">_</span>
+    </a>
+    <button class="nav-toggle" aria-label="Toggle menu">menu</button>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">./home</a></li>
+      <li><a href="writeups.html">./writeups</a></li>
+      <li><a href="blog.html">./blog</a></li>
+      <li><a href="about.html">./about</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+
+      <!-- =====================================================
+           LIVE INTERACTIVE TERMINAL
+           ===================================================== -->
+      <div class="terminal-live" id="live-terminal" role="application" aria-label="Interactive terminal">
+
+        <!-- titlebar -->
+        <div class="terminal-head">
+          <span class="dot r"></span>
+          <span class="dot y"></span>
+          <span class="dot g"></span>
+          <span class="title">soahcerup@notes:~$ — bash</span>
+        </div>
+
+        <!-- scrollable output -->
+        <div class="t-output" id="t-output" aria-live="polite" aria-atomic="false"></div>
+
+        <!-- input row -->
+        <div class="t-input-row">
+          <span class="p">soahcerup@notes:<span class="t-cwd">~</span>$</span>
+          <input
+            class="t-input"
+            id="t-input"
+            type="text"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            aria-label="Terminal input"
+            placeholder="type 'help' to get started…"
+          >
+        </div>
+      </div>
+      <!-- end live terminal -->
+
+      <p class="hero-tag">
+        <span class="live-dot"></span>
+        interactive — try: <code style="font-family:var(--font-mono);color:var(--purple-soft);font-size:11px">ls writeups/</code>
+        &nbsp;·&nbsp;
+        <code style="font-family:var(--font-mono);color:var(--purple-soft);font-size:11px">cat about.md</code>
+        &nbsp;·&nbsp;
+        <code style="font-family:var(--font-mono);color:var(--purple-soft);font-size:11px">help</code>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-path">~/writeups/latest</div>
+          <h2 class="section-title">Latest machines</h2>
+        </div>
+        <a href="writeups.html" class="section-link">view all →</a>
+      </div>
+      <div class="grid">
+{{LATEST_WRITEUPS}}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <div class="section-path">~/blog/recent</div>
+          <h2 class="section-title">From the blog</h2>
+        </div>
+        <a href="blog.html" class="section-link">view all →</a>
+      </div>
+      <div class="grid">
+{{LATEST_BLOG}}
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-row">
+    <span>soahcerup@notes — simplifying the complex world</span>
+    <div class="footer-links">
+      <a href="https://github.com/Soahcerup" target="_blank" rel="noopener" aria-label="GitHub">
+        <i class="fa-brands fa-github"></i>
+      </a>
+      <a href="https://discord.com/users/s0ahcerup" target="_blank" rel="noopener" aria-label="Discord">
+        <i class="fa-brands fa-discord"></i>
+      </a>
+      <a href="https://x.com/" target="_blank" rel="noopener" aria-label="X">
+        <i class="fa-brands fa-x-twitter"></i>
+      </a>
+      <a href="mailto:mmts.cool@gmail.com" aria-label="Email">
+        <i class="fa-solid fa-envelope"></i>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- single script — replaces main.js -->
+<script src="js/terminal.js"></script>
+</body>
+</html>
