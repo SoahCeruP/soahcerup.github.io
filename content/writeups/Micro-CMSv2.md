@@ -1,5 +1,5 @@
 ---
-title: Hacker101 CTF — Flags 1–3
+title: Hacker101 CTF — Micro-CMS v2
 date: 2026-09-10
 platform: Hacker101 . CTF
 difficulty: medium
