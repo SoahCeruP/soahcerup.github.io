@@ -1,5 +1,5 @@
 ---
-title: Hacker101 CTF — Micro-CMS v2
+title: Hacker101 CTF - Micro-CMS v2
 date: 2026-09-10
 platform: Hacker101 . CTF
 difficulty: medium
@@ -7,7 +7,7 @@ tags: [web, sqli, ctf]
 excerpt: A Hacker101 CTF walkthrough covering HTTP method manipulation, SQL injection authentication bypass, and blind SQL injection to enumerate credentials.
 ---
 
-### Flag 1 — HTTP Method Manipulation
+### Flag 1 - HTTP Method Manipulation
 
 While browsing the application as an unauthenticated user, I noticed that some pages contained an Edit link. Clicking the link redirected to the `/login` page, indicating that authentication was required through the normal interface.
 I intercepted the request using Burp Suite and inspected the edit endpoint:
@@ -30,7 +30,7 @@ Since POST was allowed on the endpoint, I sent a POST request directly to:
 without authenticating through the normal login flow.
 The endpoint processed the request and returned the first flag.
 
-### Flag 2 — SQL Injection Authentication Bypass
+### Flag 2 - SQL Injection Authentication Bypass
 
 Next, I investigated the `/login` endpoint.
 
@@ -161,7 +161,7 @@ The application appears to take the value returned by the database and compare i
 ```
 Because both values are `1234`, the application's password comparison succeeds, resulting in an authentication bypass.
 
-### Flag 3 — Blind SQL Injection
+### Flag 3 - Blind SQL Injection
 After obtaining the previous flag,we need to determine the actual username rather than simply bypassing authentication.
 I noticed that the application produced different responses depending on whether the injected SQL condition matched a user.
 
