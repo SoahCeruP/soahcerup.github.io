@@ -1,5 +1,5 @@
 // ---------------------------------------------------------------
-// nav toggle (mobile)
+// nav toggle (mobile) & initialization
 // ---------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
   const toggle = document.querySelector('.nav-toggle');
@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initTerminal();
   initFilters();
+  initViewSwitcher();
 });
 
 // ---------------------------------------------------------------
@@ -61,25 +62,101 @@ function initTerminal() {
 }
 
 // ---------------------------------------------------------------
-// tag filter bar on the writeups page
+// combined search bar & tag filter on the writeups/blog page
 // ---------------------------------------------------------------
 function initFilters() {
   const bar = document.querySelector('.filter-bar');
   const cards = document.querySelectorAll('[data-tags]');
-  if (!bar || !cards.length) return;
+  const searchInput = document.getElementById('search-input');
+  const clearBtn = document.getElementById('clear-search');
 
-  bar.addEventListener('click', (e) => {
-    const pill = e.target.closest('.filter-pill');
-    if (!pill) return;
+  if (!cards.length) return;
 
-    bar.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-    pill.classList.add('active');
+  let activeFilter = 'all';
+  let activeSearchQuery = '';
 
-    const filter = pill.dataset.filter;
+  // Combined logic for search input and filter pills
+  const applyFilters = () => {
     cards.forEach(card => {
-      const tags = card.dataset.tags.split(',');
-      const show = filter === 'all' || tags.includes(filter);
-      card.style.display = show ? '' : 'none';
+      const tags = card.dataset.tags ? card.dataset.tags.split(',') : [];
+      const matchesFilter = activeFilter === 'all' || tags.includes(activeFilter);
+
+      const cardText = card.textContent.toLowerCase();
+      const matchesSearch = activeSearchQuery === '' || cardText.includes(activeSearchQuery);
+
+      card.style.display = matchesFilter && matchesSearch ? '' : 'none';
     });
-  });
+  };
+
+  // Filter Pills Click Event
+  if (bar) {
+    bar.addEventListener('click', (e) => {
+      const pill = e.target.closest('.filter-pill');
+      if (!pill) return;
+
+      bar.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+
+      activeFilter = pill.dataset.filter;
+      applyFilters();
+    });
+  }
+
+  // Search Input Handler
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      activeSearchQuery = e.target.value.toLowerCase().trim();
+      if (clearBtn) {
+        clearBtn.hidden = activeSearchQuery === '';
+      }
+      applyFilters();
+    });
+  }
+
+  // Clear Search Button Handler
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      if (searchInput) {
+        searchInput.value = '';
+        activeSearchQuery = '';
+        clearBtn.hidden = true;
+        applyFilters();
+        searchInput.focus();
+      }
+    });
+  }
+}
+
+// ---------------------------------------------------------------
+// grid vs. list view switcher
+// ---------------------------------------------------------------
+function initViewSwitcher() {
+  const gridBtn = document.getElementById('grid-view-btn');
+  const listBtn = document.getElementById('list-view-btn');
+  const container = document.getElementById('posts-container') || document.querySelector('.grid');
+
+  if (!container || (!gridBtn && !listBtn)) return;
+
+  const setView = (view) => {
+    if (view === 'list') {
+      container.classList.remove('grid');
+      container.classList.add('list-view');
+      listBtn?.classList.add('active');
+      gridBtn?.classList.remove('active');
+      localStorage.setItem('preferred-view', 'list');
+    } else {
+      container.classList.remove('list-view');
+      container.classList.add('grid');
+      gridBtn?.classList.add('active');
+      listBtn?.classList.remove('active');
+      localStorage.setItem('preferred-view', 'grid');
+    }
+  };
+
+  // Load saved preference or default to grid
+  const savedView = localStorage.getItem('preferred-view') || 'grid';
+  setView(savedView);
+
+  gridBtn?.addEventListener('click', () => setView('grid'));
+  listBtn?.addEventListener('click', () => setView('list'));
 }
