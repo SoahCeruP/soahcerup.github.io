@@ -42,12 +42,36 @@
 
   <section class="section">
     <div class="wrap">
-      <div class="filter-bar">
-        <button class="filter-pill active" data-filter="all">all</button>
+      <div class="controls-bar">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input 
+            type="text" 
+            id="search-input" 
+            placeholder="Search by title, OS, tags, or description..." 
+            aria-label="Search posts"
+          />
+          <button id="clear-search" class="clear-btn" aria-label="Clear search" hidden>
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="filter-bar">
+          <button class="filter-pill active" data-filter="all">all</button>
 {{FILTER_PILLS}}
+        </div>
+
+        <div class="view-switcher" role="group" aria-label="View switch">
+          <button id="grid-view-btn" class="view-btn active" title="Grid View" aria-label="Grid view">
+            <i class="fa-solid fa-border-all"></i>
+          </button>
+          <button id="list-view-btn" class="view-btn" title="List View" aria-label="List view">
+            <i class="fa-solid fa-list"></i>
+          </button>
+        </div>
       </div>
 
-      <div class="grid">
+      <div id="posts-container" class="grid">
 {{WRITEUP_CARDS}}
       </div>
     </div>
