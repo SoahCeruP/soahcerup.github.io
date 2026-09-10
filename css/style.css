@@ -310,6 +310,114 @@ body::before {
 .section-link:hover { color: var(--magenta-soft); }
 
 /* ============================================================
+   controls toolbar (search bar, filter bar, view switcher)
+   ============================================================ */
+.controls-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 800px) {
+  .controls-bar {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+}
+
+/* Search Box */
+.search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 260px;
+  max-width: 420px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0 12px;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.search-box:focus-within {
+  border-color: var(--purple-primary);
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+}
+
+.search-icon {
+  color: var(--text-dim);
+  margin-right: 8px;
+  font-size: 13px;
+}
+
+.search-box input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 8px 0;
+}
+
+.search-box input::placeholder {
+  color: var(--text-dim);
+}
+
+.clear-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+.clear-btn:hover {
+  color: var(--magenta-soft);
+}
+
+/* View Switcher */
+.view-switcher {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 3px;
+  border-radius: var(--radius);
+}
+
+.view-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  padding: 6px 10px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.15s ease;
+}
+
+.view-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-card-hover);
+}
+
+.view-btn.active {
+  background: var(--bg-elevated);
+  color: var(--magenta-soft);
+  border: 1px solid var(--border-bright);
+}
+
+/* ============================================================
    cards — writeups grid (directory-listing feel)
    ============================================================ */
 .grid {
@@ -393,13 +501,63 @@ body::before {
 }
 
 /* ============================================================
+   list view mode
+   ============================================================ */
+.list-view {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+.list-view .card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  gap: 16px;
+}
+
+.list-view .card:hover {
+  transform: none;
+}
+
+.list-view .card h3 {
+  font-size: 16px;
+  min-width: 200px;
+}
+
+.list-view .card p {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.list-view .tags {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+@media (max-width: 768px) {
+  .list-view .card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .list-view .card p {
+    -webkit-line-clamp: 2;
+  }
+}
+
+/* ============================================================
    filter bar (writeups page)
    ============================================================ */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 32px;
 }
 .filter-pill {
   font-family: var(--font-mono);
