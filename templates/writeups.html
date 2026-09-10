@@ -1,79 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>~/writeups — soahcerup@notes</title>
-<meta name="description" content="Machine writeups from HTB, THM, and other CTF platforms.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Machine writeups from HTB, THM, and other CTF platforms." />
+  <title>~/writeups — soahcerup@notes</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-<header class="topbar">
-  <div class="titlebar-row">
-    <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-    <span class="titlebar-path">soahcerup@notes: ~/writeups</span>
-  </div>
-  <nav class="nav">
-    <a href="index.html" class="brand">
-      <span class="prompt-user">soahcerup</span><span class="prompt-sep">@notes:~$</span>
-      <span class="prompt-cursor">_</span>
-    </a>
-    <button class="nav-toggle" aria-label="Toggle menu">menu</button>
-    <ul class="nav-links">
-      <li><a href="index.html">./home</a></li>
-      <li><a href="writeups.html" class="active">./writeups</a></li>
-      <li><a href="blog.html">./blog</a></li>
-      <li><a href="about.html">./about.md</a></li>
-    </ul>
-  </nav>
-</header>
-
-<main>
-  <div class="page-head wrap">
-    <div class="section-path">~/writeups</div>
-    <h1>Machine writeups</h1>
-    <p class="lede">Full exploitation chains, enumeration notes, and the dead ends along the way. Filter by technique below.</p>
-  </div>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="filter-bar">
-        <button class="filter-pill active" data-filter="all">all</button>
-{{FILTER_PILLS}}
-      </div>
-
-      <div class="grid">
-{{WRITEUP_CARDS}}
-      </div>
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="site-title">
+        <span class="prompt">soahcerup@notes:~$ </span><span class="cursor">_</span>
+      </a>
+      <nav class="nav" aria-label="Site navigation">
+        <ul>
+          <li><a href="index.html">./home</a></li>
+          <li><a href="writeups.html" class="active">./writeups</a></li>
+          <li><a href="blog.html">./blog</a></li>
+          <li><a href="about.html">./about.md</a></li>
+        </ul>
+      </nav>
+      <button class="nav-toggle" aria-label="Toggle menu">menu</button>
     </div>
-  </section>
-</main>
+  </header>
 
-<footer class="site-footer">
-  <div class="wrap footer-row">
-    <span>soahcerup@notes - Simplifying the complex world</span>
+  <main class="main-content">
+    <div class="page-header">
+      <span class="breadcrumb">~/writeups</span>
+      <h1>Machine writeups</h1>
+      <p class="page-desc">Full exploitation chains, enumeration notes, and the dead ends along the way. Filter by technique below.</p>
+    </div>
+
+    <!-- tag filter (existing) -->
+    <div class="filter-bar" id="filter-bar" role="group" aria-label="Filter by tag">
+      <button class="filter-btn active" data-tag="all" onclick="filterWriteups(this)">all</button>
+      {{FILTER_BUTTONS}}
+    </div>
+
+    <!-- search + view toolbar injected by search-view.js right before #cards-container -->
+
+    <!-- cards grid — id required by search-view.js -->
+    <div id="cards-container" class="cards">
+      {{WRITEUP_CARDS}}
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>soahcerup@notes - Simplifying the complex world</p>
     <div class="footer-links">
-      <a href="https://github.com/Soahcerup" target="_blank" rel="noopener" aria-label="GitHub">
-        <i class="fa-brands fa-github"></i>
-      </a>
-      <a href="https://discord.com/users/s0ahcerup" target="_blank" rel="noopener" aria-label="Discord">
-        <i class="fa-brands fa-discord"></i>
-      </a>
-      <a href="https://x.com/soahcerup" target="_blank" rel="noopener" aria-label="X">
-        <i class="fa-brands fa-x-twitter"></i>
-      </a>
-      <a href="mailto:mmts.cool@gmail.com" aria-label="Email">
-        <i class="fa-solid fa-envelope"></i>
-      </a>
+      <a href="https://github.com/Soahcerup" target="_blank" rel="noopener">github</a>
+      <a href="https://discord.com/users/s0ahcerup" target="_blank" rel="noopener">discord</a>
+      <a href="https://x.com/soahcerup" target="_blank" rel="noopener">x / twitter</a>
+      <a href="mailto:mmts.cool@gmail.com">email</a>
     </div>
-  </div>
-</footer>
+  </footer>
 
-<script src="js/main.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/search-view.js"></script>
+
+  <script>
+    /* existing tag-filter logic — keep in sync with build.js output */
+    function filterWriteups(btn) {
+      const tag = btn.dataset.tag;
+      document.querySelectorAll('#filter-bar .filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.querySelectorAll('#cards-container .card').forEach(card => {
+        if (tag === 'all') {
+          card.style.display = '';
+          delete card.dataset.svTagHidden;
+        } else {
+          const tags = (card.dataset.tags || '').split(',').map(t => t.trim());
+          const show = tags.includes(tag);
+          card.style.display = show ? '' : 'none';
+          card.dataset.svTagHidden = show ? 'false' : 'true';
+        }
+      });
+    }
+  </script>
 </body>
 </html>
