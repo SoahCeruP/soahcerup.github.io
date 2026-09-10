@@ -9,7 +9,7 @@ excerpt: A Hacker101 CTF walkthrough covering HTTP method manipulation, SQL inje
 
 ### Flag 1 — HTTP Method Manipulation
 
-While browsing the application as an unauthenticated user, I noticed that some pages contained an Edit link. Clicking the link redirected to the /login page, indicating that authentication was required through the normal interface.
+While browsing the application as an unauthenticated user, I noticed that some pages contained an Edit link. Clicking the link redirected to the `/login` page, indicating that authentication was required through the normal interface.
 I intercepted the request using Burp Suite and inspected the edit endpoint:
 ```
 /page/edit/1
