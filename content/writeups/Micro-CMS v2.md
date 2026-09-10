@@ -2,7 +2,7 @@
 title: Hacker101 CTF — Flags 1–3
 date: 2026-09-10
 platform: Hacker101 . CTF
-difficulty: Moderate
+difficulty: medium
 tags: [web, sqli, ctf]
 excerpt: A Hacker101 CTF walkthrough covering HTTP method manipulation, SQL injection authentication bypass, and blind SQL injection to enumerate credentials.
 ---
@@ -31,7 +31,6 @@ Since POST was allowed on the endpoint, I sent a POST request directly to:
 /page/edit/1
 ```
 without authenticating through the normal login flow.
-
 The endpoint processed the request and returned the first flag.
 
 ### Flag 2 — SQL Injection Authentication Bypass
